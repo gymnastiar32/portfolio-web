@@ -1,4 +1,4 @@
-import { Badge, Button, Table, TableBody, TableCell, TableHead, TableHeadCell, TableRow } from 'flowbite-react'
+import { Badge, Button, Table, TableBody, TableCell, TableHead, TableHeadCell, TableRow, Dropdown, DropdownItem } from 'flowbite-react'
 import { HiEye, HiPencilSquare, HiTrash } from 'react-icons/hi2'
 import { Link } from 'react-router-dom'
 import type { Portfolio } from '../../types/portfolio'
@@ -40,20 +40,20 @@ export function PortfolioTable({ items, onDelete }: PortfolioTableProps) {
               </TableCell>
               <TableCell>{formatDate(portfolio.updated_at || portfolio.created_at)}</TableCell>
               <TableCell>
-                <div className="flex flex-wrap gap-2">
-                  <Button as={Link} to={`/portfolio/${portfolio.slug}`} color="light" size="xs" target="_blank">
+                <Dropdown label="Action" dismissOnClick={false}>
+                  <DropdownItem as={Link} to={`/portfolio/${portfolio.slug}`} target="_blank">
                     <HiEye className="mr-1 h-4 w-4" />
                     Preview
-                  </Button>
-                  <Button as={Link} to={`/admin/portfolio/${portfolio.id}/edit`} color="warning" size="xs">
+                  </DropdownItem>
+                  <DropdownItem as={Link} to={`/admin/portfolio/${portfolio.id}/edit`}>
                     <HiPencilSquare className="mr-1 h-4 w-4" />
                     Edit
-                  </Button>
-                  <Button color="failure" size="xs" onClick={() => onDelete(portfolio)}>
+                  </DropdownItem>
+                  <DropdownItem onClick={() => onDelete(portfolio)}>
                     <HiTrash className="mr-1 h-4 w-4" />
                     Delete
-                  </Button>
-                </div>
+                  </DropdownItem>
+                </Dropdown>
               </TableCell>
             </TableRow>
           ))}

@@ -11,7 +11,7 @@ export function PortfolioCard({ portfolio }: { portfolio: Portfolio }) {
       className="h-full rounded-3xl border border-white/70 bg-white/85 shadow-sm transition hover:-translate-y-1 hover:shadow-xl hover:shadow-primary-900/10"
     >
       <div className="flex items-start justify-between gap-4">
-        <Badge color="warning" className="rounded-full px-3 py-1">
+        <Badge color="yellow" className="rounded-full px-3 py-1">
           {portfolio.category}
         </Badge>
         {portfolio.featured ? (

@@ -48,7 +48,7 @@ export function ContactSection() {
               </a>
             ))}
           </div>
-          <Button as="a" href={`mailto:${siteProfile.email}`} color="warning" size="lg" className="w-fit">
+          <Button as="a" href={`mailto:${siteProfile.email}`} color="yellow" size="lg" className="w-fit">
             Start a conversation
           </Button>
         </div>

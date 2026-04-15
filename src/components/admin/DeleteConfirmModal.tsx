@@ -25,7 +25,7 @@ export function DeleteConfirmModal({
           <h3 className="text-2xl text-stone-900">{title}</h3>
           <p className="text-sm leading-7 text-stone-600">{description}</p>
           <div className="flex justify-center gap-3">
-            <Button color="failure" disabled={deleting} onClick={onConfirm}>
+            <Button color="red" disabled={deleting} onClick={onConfirm}>
               {deleting ? <Spinner size="sm" className="mr-2" /> : null}
               Delete item
             </Button>

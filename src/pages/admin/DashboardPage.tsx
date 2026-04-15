@@ -53,7 +53,7 @@ export function DashboardPage() {
             <p className="section-kicker w-fit">Quick actions</p>
             <h2 className="text-3xl text-stone-900">Keep the portfolio fresh without touching source files.</h2>
           </div>
-          <Button as={Link} to="/admin/portfolio/create" color="warning">
+          <Button as={Link} to="/admin/portfolio/create" color="yellow">
             Create new case study
           </Button>
         </div>

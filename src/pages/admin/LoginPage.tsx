@@ -67,19 +67,19 @@ export function LoginPage() {
           </div>
 
           {!env.adminEmail ? (
-            <Alert color="warning" icon={HiInformationCircle}>
+            <Alert color="yellow" icon={HiInformationCircle}>
               Admin email is not configured yet. Add <code>VITE_ADMIN_EMAIL</code> before using this area.
             </Alert>
           ) : null}
 
           {isAuthenticated && !isAdmin ? (
-            <Alert color="failure" icon={HiInformationCircle}>
+            <Alert color="red" icon={HiInformationCircle}>
               This session does not match the configured admin email. Sign out and use <strong>{env.adminEmail}</strong>.
             </Alert>
           ) : null}
 
           {error ? (
-            <Alert color="failure" icon={HiInformationCircle}>
+            <Alert color="red" icon={HiInformationCircle}>
               {error}
             </Alert>
           ) : null}
@@ -96,7 +96,7 @@ export function LoginPage() {
               {errors.password ? <p className="mt-1 text-xs text-red-600">{errors.password.message}</p> : null}
             </div>
             <div className="flex flex-wrap gap-3">
-              <Button color="warning" type="submit" disabled={submitting}>
+              <Button color="yellow" type="submit" disabled={submitting}>
                 {submitting ? <Spinner size="sm" className="mr-2" /> : null}
                 Sign in
               </Button>

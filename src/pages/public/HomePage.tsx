@@ -43,9 +43,6 @@ export function HomePage() {
             <p className="section-kicker">Featured Portfolio</p>
             <h2 className="text-3xl text-stone-900 sm:text-4xl">Selected case studies with measurable product context.</h2>
           </div>
-          <Button as={Link} to="/portfolio" color="warning" className="shrink-0">
-            View all portfolio
-          </Button>
         </div>
         {loading ? <LoadingState label="Loading featured portfolio..." /> : null}
         {!loading && error ? (
@@ -60,6 +57,11 @@ export function HomePage() {
           />
         ) : null}
         {!loading && !error && portfolios.length > 0 ? <PortfolioGrid portfolios={portfolios} /> : null}
+        <div className='flex justify-center'>
+          <Button as={Link} to="/portfolio" color="yellow" className='mt-5'>
+            View all portfolio
+          </Button>
+        </div>
       </section>
       <ContactSection />
     </>

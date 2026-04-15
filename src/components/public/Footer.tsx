@@ -26,7 +26,6 @@ export function Footer() {
                 <FooterLinkGroup col>
                   <FooterLink href="/">Home</FooterLink>
                   <FooterLink href="/portfolio">Portfolio</FooterLink>
-                  <FooterLink href="/admin/login">Admin</FooterLink>
                 </FooterLinkGroup>
               </div>
               <div>

@@ -17,7 +17,7 @@ export function SkillsSection() {
             <p className="text-sm leading-7 text-stone-600">{group.description}</p>
             <div className="mt-4 flex flex-wrap gap-2">
               {group.skills.map((skill) => (
-                <Badge key={skill} color="warning" className="rounded-full px-3 py-1.5">
+                <Badge key={skill} color="yellow" className="rounded-full px-3 py-1.5">
                   {skill}
                 </Badge>
               ))}

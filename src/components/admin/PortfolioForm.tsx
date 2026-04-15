@@ -45,15 +45,15 @@ function toFormValues(portfolio?: Portfolio | null): PortfolioFormValues {
     tools:
       portfolio.tools.length > 0
         ? portfolio.tools.map((tool) => ({
-            name: tool.tool_name,
-          }))
+          name: tool.tool_name,
+        }))
         : [{ name: '' }],
     gallery:
       portfolio.gallery.length > 0
         ? portfolio.gallery.map((item) => ({
-            image_url: item.image_url,
-            caption: item.caption || '',
-          }))
+          image_url: item.image_url,
+          caption: item.caption || '',
+        }))
         : [{ image_url: '', caption: '' }],
   }
 }
@@ -227,7 +227,7 @@ export function PortfolioForm({ initialPortfolio, submitLabel, submitting, error
   return (
     <form className="space-y-8" onSubmit={handleSubmit((formValues) => void onInternalSubmit(formValues))}>
       {error || localError ? (
-        <Alert color="failure" icon={HiInformationCircle}>
+        <Alert color="red" icon={HiInformationCircle}>
           <span className="font-medium">We couldn&apos;t save this portfolio.</span> {error || localError}
         </Alert>
       ) : null}
@@ -387,7 +387,7 @@ export function PortfolioForm({ initialPortfolio, submitLabel, submitting, error
         <p className="text-sm text-primary-900">
           Uploads will go to <span className="font-semibold">portfolio-images</span>. Make sure your bucket and RLS policies are ready before saving.
         </p>
-        <Button color="warning" type="submit" disabled={submitting || uploading}>
+        <Button color="yellow" type="submit" disabled={submitting || uploading}>
           {submitting || uploading ? <Spinner size="sm" className="mr-2" /> : null}
           <HiArrowUpTray className="mr-2 h-4 w-4" />
           {submitLabel}

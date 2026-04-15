@@ -15,7 +15,7 @@ export function EmptyState({ title, description, ctaLabel, ctaHref }: EmptyState
       <h2 className="text-3xl text-stone-900">{title}</h2>
       <p className="mx-auto mt-4 max-w-xl text-sm leading-7 text-stone-600">{description}</p>
       {ctaLabel && ctaHref ? (
-        <Button as={Link} to={ctaHref} color="warning" className="mx-auto mt-6 w-fit">
+        <Button as={Link} to={ctaHref} color="yellow" className="mx-auto mt-6 w-fit">
           {ctaLabel}
         </Button>
       ) : null}

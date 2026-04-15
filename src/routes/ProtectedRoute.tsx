@@ -19,7 +19,7 @@ export function ProtectedRoute() {
   if (!isAdmin) {
     return (
       <div className="section-shell py-16">
-        <Alert color="failure">
+        <Alert color="red">
           This account is authenticated, but it is not the configured admin. Update <code>VITE_ADMIN_EMAIL</code>
           {env.adminEmail ? ` to match ${env.adminEmail}.` : ' in your environment variables.'}
         </Alert>

@@ -24,7 +24,7 @@ export function HeroSection({ featuredCount }: HeroSectionProps) {
                 <p className="text-sm text-stone-500">UI/UX Designer</p>
               </div>
             </div>
-            <Badge color="warning" icon={HiSparkles} className="mb-4 w-fit">
+            <Badge color="yellow" icon={HiSparkles} className="mb-4 w-fit">
               Selected work for product, commerce, and operational interfaces
             </Badge>
             <h1 className="max-w-3xl text-4xl leading-tight text-stone-900 sm:text-5xl lg:text-6xl">

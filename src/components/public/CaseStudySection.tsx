@@ -44,7 +44,7 @@ export function CaseStudySection({ portfolio }: { portfolio: Portfolio }) {
             <p className="text-xs uppercase tracking-[0.28em] text-primary-300">Tool stack</p>
             <div className="mt-4 flex flex-wrap gap-2">
               {portfolio.tools.map((tool) => (
-                <Badge key={tool.id ?? tool.tool_name} color="warning" className="rounded-full px-3 py-1.5">
+                <Badge key={tool.id ?? tool.tool_name} color="yellow" className="rounded-full px-3 py-1.5">
                   {tool.tool_name}
                 </Badge>
               ))}

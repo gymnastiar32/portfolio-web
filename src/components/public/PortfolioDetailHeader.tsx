@@ -7,7 +7,7 @@ export function PortfolioDetailHeader({ portfolio }: { portfolio: Portfolio }) {
       <div className="glass-panel overflow-hidden">
         <div className="grid gap-8 p-6 sm:p-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-end">
           <div>
-            <Badge color="warning" className="w-fit rounded-full px-3 py-1">
+            <Badge color="yellow" className="w-fit rounded-full px-3 py-1">
               {portfolio.category}
             </Badge>
             <h1 className="mt-4 text-4xl text-stone-900 sm:text-5xl">{portfolio.title}</h1>
