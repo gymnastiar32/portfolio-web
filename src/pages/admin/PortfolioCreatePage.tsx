@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { PortfolioForm } from '../../components/admin/PortfolioForm'
+import { useDocumentTitle } from '../../hooks/useDocumentTitle'
 import { portfolioService } from '../../services/portfolioService'
 import type { PortfolioPayload } from '../../types/portfolio'
 
@@ -8,6 +9,8 @@ export function PortfolioCreatePage() {
   const navigate = useNavigate()
   const [error, setError] = useState<string | null>(null)
   const [submitting, setSubmitting] = useState(false)
+
+  useDocumentTitle('Create Portfolio')
 
   async function handleCreate(payload: PortfolioPayload) {
     setSubmitting(true)

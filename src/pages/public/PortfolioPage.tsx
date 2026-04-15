@@ -3,6 +3,7 @@ import { EmptyState } from '../../components/common/EmptyState'
 import { LoadingState } from '../../components/common/LoadingState'
 import { PortfolioFilterBar } from '../../components/public/PortfolioFilterBar'
 import { PortfolioGrid } from '../../components/public/PortfolioGrid'
+import { useDocumentTitle } from '../../hooks/useDocumentTitle'
 import { portfolioService } from '../../services/portfolioService'
 import type { Portfolio } from '../../types/portfolio'
 
@@ -12,6 +13,8 @@ export function PortfolioPage() {
   const [category, setCategory] = useState('')
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+
+  useDocumentTitle('Portfolio')
 
   useEffect(() => {
     async function loadPortfolios() {

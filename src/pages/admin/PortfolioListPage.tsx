@@ -5,6 +5,7 @@ import { DeleteConfirmModal } from '../../components/admin/DeleteConfirmModal'
 import { PortfolioTable } from '../../components/admin/PortfolioTable'
 import { EmptyState } from '../../components/common/EmptyState'
 import { LoadingState } from '../../components/common/LoadingState'
+import { useDocumentTitle } from '../../hooks/useDocumentTitle'
 import { portfolioService } from '../../services/portfolioService'
 import type { Portfolio } from '../../types/portfolio'
 
@@ -17,6 +18,8 @@ export function PortfolioListPage() {
   const [error, setError] = useState<string | null>(null)
   const [pendingDelete, setPendingDelete] = useState<Portfolio | null>(null)
   const [deleting, setDeleting] = useState(false)
+
+  useDocumentTitle('Manage Portfolio')
 
   async function loadPortfolios() {
     setLoading(true)

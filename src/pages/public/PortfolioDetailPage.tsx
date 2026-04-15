@@ -4,6 +4,7 @@ import { EmptyState } from '../../components/common/EmptyState'
 import { LoadingState } from '../../components/common/LoadingState'
 import { CaseStudySection } from '../../components/public/CaseStudySection'
 import { PortfolioDetailHeader } from '../../components/public/PortfolioDetailHeader'
+import { useDocumentTitle } from '../../hooks/useDocumentTitle'
 import { portfolioService } from '../../services/portfolioService'
 import type { Portfolio } from '../../types/portfolio'
 
@@ -12,6 +13,8 @@ export function PortfolioDetailPage() {
   const [portfolio, setPortfolio] = useState<Portfolio | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+
+  useDocumentTitle(portfolio?.title ?? (error ? 'Case Study Not Found' : 'Case Study'))
 
   useEffect(() => {
     async function loadPortfolio() {

@@ -6,6 +6,7 @@ import { HiInformationCircle } from 'react-icons/hi2'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { z } from 'zod'
 import { env } from '../../config/env'
+import { useDocumentTitle } from '../../hooks/useDocumentTitle'
 import { useAuth } from '../../hooks/useAuth'
 
 const loginSchema = z.object({
@@ -21,6 +22,8 @@ export function LoginPage() {
   const location = useLocation()
   const [error, setError] = useState<string | null>(null)
   const [submitting, setSubmitting] = useState(false)
+
+  useDocumentTitle('Admin Login')
 
   const {
     register,

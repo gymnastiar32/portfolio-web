@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { PortfolioForm } from '../../components/admin/PortfolioForm'
 import { EmptyState } from '../../components/common/EmptyState'
 import { LoadingState } from '../../components/common/LoadingState'
+import { useDocumentTitle } from '../../hooks/useDocumentTitle'
 import { portfolioService } from '../../services/portfolioService'
 import type { Portfolio, PortfolioPayload } from '../../types/portfolio'
 
@@ -13,6 +14,8 @@ export function PortfolioEditPage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [submitting, setSubmitting] = useState(false)
+
+  useDocumentTitle(portfolio ? `Edit ${portfolio.title}` : error ? 'Portfolio Not Found' : 'Edit Portfolio')
 
   useEffect(() => {
     async function loadPortfolio() {

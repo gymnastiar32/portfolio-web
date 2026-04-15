@@ -8,6 +8,7 @@ import { ContactSection } from '../../components/public/ContactSection'
 import { HeroSection } from '../../components/public/HeroSection'
 import { PortfolioGrid } from '../../components/public/PortfolioGrid'
 import { SkillsSection } from '../../components/public/SkillsSection'
+import { useDocumentTitle } from '../../hooks/useDocumentTitle'
 import { portfolioService } from '../../services/portfolioService'
 import type { Portfolio } from '../../types/portfolio'
 
@@ -15,6 +16,8 @@ export function HomePage() {
   const [portfolios, setPortfolios] = useState<Portfolio[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+
+  useDocumentTitle('Home')
 
   useEffect(() => {
     async function loadPortfolio() {

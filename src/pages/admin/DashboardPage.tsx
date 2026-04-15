@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { EmptyState } from '../../components/common/EmptyState'
 import { LoadingState } from '../../components/common/LoadingState'
 import { StatsCard } from '../../components/admin/StatsCard'
+import { useDocumentTitle } from '../../hooks/useDocumentTitle'
 import { portfolioService } from '../../services/portfolioService'
 import type { DashboardStats, Portfolio } from '../../types/portfolio'
 
@@ -12,6 +13,8 @@ export function DashboardPage() {
   const [recent, setRecent] = useState<Portfolio[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+
+  useDocumentTitle('Admin Dashboard')
 
   useEffect(() => {
     async function loadDashboard() {
