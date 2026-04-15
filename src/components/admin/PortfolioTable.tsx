@@ -1,4 +1,4 @@
-import { Badge, Button, Table, TableBody, TableCell, TableHead, TableHeadCell, TableRow, Dropdown, DropdownItem } from 'flowbite-react'
+import { Badge, Table, TableBody, TableCell, TableHead, TableHeadCell, TableRow, Dropdown, DropdownItem } from 'flowbite-react'
 import { HiEye, HiPencilSquare, HiTrash } from 'react-icons/hi2'
 import { Link } from 'react-router-dom'
 import type { Portfolio } from '../../types/portfolio'
