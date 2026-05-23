@@ -13,7 +13,7 @@ export function HeroSection({ featuredCount }: HeroSectionProps) {
         <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-r from-primary-200/60 via-transparent to-primary-100/50" />
         <div className="relative grid gap-10 lg:grid-cols-[1.3fr_0.7fr] lg:items-end">
           <div>
-            <div className="mb-6 flex items-center gap-4">
+            <div className="mb-6 flex flex-wrap items-center gap-4">
               <img
                 src={siteProfile.profileImage}
                 alt={siteProfile.name}
@@ -34,7 +34,7 @@ export function HeroSection({ featuredCount }: HeroSectionProps) {
               {siteProfile.shortBio}
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
-              <Button as="a" href="#contact" color="light" size="lg">
+              <Button as="a" href="#contact" color="light" size="lg" className="w-full sm:w-auto">
                 Let&apos;s work together
               </Button>
             </div>
@@ -57,7 +57,7 @@ export function HeroSection({ featuredCount }: HeroSectionProps) {
               </div>
               <div>
                 <p className="text-xs uppercase tracking-[0.28em] text-stone-400">Current focus</p>
-                <p className="mt-2 text-lg font-medium">Design systems, checkout flows, and data-rich dashboards</p>
+                <p className="mt-2 text-lg font-medium">Design systems, landing pages, and admin interfaces</p>
               </div>
               <div>
                 <p className="text-xs uppercase tracking-[0.28em] text-stone-400">Availability</p>

@@ -40,7 +40,7 @@ export function HomePage() {
       <HeroSection featuredCount={portfolios.length} />
       <AboutSection />
       <SkillsSection />
-      <section id="portfolio" className="section-shell py-14">
+      <section id="portfolio" className="section-shell scroll-mt-28 py-14 sm:scroll-mt-32">
         <div className="mb-8 flex items-end justify-between gap-4">
           <div>
             <p className="section-kicker">Featured Portfolio</p>
@@ -60,8 +60,8 @@ export function HomePage() {
           />
         ) : null}
         {!loading && !error && portfolios.length > 0 ? <PortfolioGrid portfolios={portfolios} /> : null}
-        <div className='flex justify-center'>
-          <Button as={Link} to="/portfolio" color="yellow" className='mt-5'>
+        <div className="flex justify-center">
+          <Button as={Link} to="/portfolio" color="yellow" className="mt-5">
             View all portfolio
           </Button>
         </div>

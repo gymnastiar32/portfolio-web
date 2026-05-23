@@ -9,11 +9,11 @@ const contactLinks = [
   { label: 'Dribbble', href: siteProfile.links.dribbble },
   { label: 'Figma', href: siteProfile.links.figma },
   { label: 'GitHub', href: siteProfile.links.github },
-]
+].filter((link): link is { label: string; href: string } => Boolean(link.href?.trim()))
 
 export function ContactSection() {
   return (
-    <section id="contact" className="section-shell py-14">
+    <section id="contact" className="section-shell scroll-mt-28 py-14 sm:scroll-mt-32">
       <div className="glass-panel grid gap-8 p-7 sm:p-8 lg:grid-cols-[0.95fr_1.05fr]">
         <SectionHeading
           kicker="Contact"
@@ -32,23 +32,25 @@ export function ContactSection() {
             </a>
             <p className="mt-3 text-sm leading-7 text-stone-300">{siteProfile.availability}</p>
           </div>
-          <div className="grid gap-3 sm:grid-cols-2">
-            {contactLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                target="_blank"
-                rel="noreferrer"
-                className="rounded-2xl border border-stone-200 bg-white px-5 py-4 text-sm font-semibold text-stone-700 shadow-sm transition hover:-translate-y-0.5 hover:text-primary-700"
-              >
-                <span className="flex items-center justify-between gap-3">
-                  {link.label}
-                  <HiArrowTopRightOnSquare className="h-4 w-4" />
-                </span>
-              </a>
-            ))}
-          </div>
-          <Button as="a" href={`mailto:${siteProfile.email}`} color="yellow" size="lg" className="w-fit">
+          {contactLinks.length > 0 ? (
+            <div className="grid gap-3 sm:grid-cols-2">
+              {contactLinks.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="rounded-2xl border border-stone-200 bg-white px-5 py-4 text-sm font-semibold text-stone-700 shadow-sm transition hover:-translate-y-0.5 hover:text-primary-700"
+                >
+                  <span className="flex items-center justify-between gap-3">
+                    <span className="truncate">{link.label}</span>
+                    <HiArrowTopRightOnSquare className="h-4 w-4 shrink-0" />
+                  </span>
+                </a>
+              ))}
+            </div>
+          ) : null}
+          <Button as="a" href={`mailto:${siteProfile.email}`} color="yellow" size="lg" className="w-full sm:w-fit">
             Start a conversation
           </Button>
         </div>

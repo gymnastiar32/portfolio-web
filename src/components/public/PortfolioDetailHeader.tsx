@@ -27,7 +27,7 @@ export function PortfolioDetailHeader({ portfolio }: { portfolio: Portfolio }) {
             <img
               src={portfolio.cover_image_url || portfolio.thumbnail_url}
               alt={portfolio.title}
-              className="h-full min-h-80 w-full object-cover"
+              className="h-full min-h-64 w-full object-cover sm:min-h-80"
             />
           </div>
         </div>

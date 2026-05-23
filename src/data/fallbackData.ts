@@ -1,42 +1,42 @@
 import type { Portfolio, PortfolioFormValues } from '../types/portfolio'
 
 export const siteProfile = {
-  name: 'Nora Elayne',
-  headline: 'UI/UX designer shaping calm, conversion-ready digital products.',
+  name: 'Gymnastiar Ramadhan',
+  headline: 'UI/UX Designer Focused on Problem-Solving and Functional, Aesthetic Design',
   shortBio:
-    'I design interfaces that help teams explain complexity with confidence, clarity, and a sense of polish that users can feel in seconds.',
+    'UI/UX Designer with 5 years of experience, focused on problem-solving and creating functional, aesthetic designs through a user-centered approach. Experienced in handling the full process from research and wireframing to prototyping to deliver effective and meaningful user experiences.',
   profileImage:
-    'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=900&q=80',
+    '/img/profile.jpeg',
   location: 'Jakarta, Indonesia',
   availability: 'Available for selective freelance and in-house collaborations',
-  yearsOfExperience: '6+ years',
-  email: 'nora.elayne.studio@example.com',
+  yearsOfExperience: '5+ years',
+  email: 'gymnastiar32@gmail.com',
   links: {
-    linkedin: 'https://www.linkedin.com/',
-    behance: 'https://www.behance.net/',
-    dribbble: 'https://dribbble.com/',
-    figma: 'https://www.figma.com/',
-    github: 'https://github.com/',
+    linkedin: 'https://www.linkedin.com/in/gymnastiar-ramadhan-4406a231b/',
+    behance: '',
+    dribbble: '',
+    figma: 'https://www.figma.com/@gymnastiar32',
+    github: 'https://github.com/gymnastiar32',
   },
 }
 
 export const skillGroups = [
   {
-    title: 'Product Thinking',
-    description: 'Discovery, UX strategy, design systems, and KPI-focused flows.',
-    skills: ['User flows', 'Information architecture', 'Wireframing', 'Content structure'],
+    title: "UI/UX Design",
+    description: "Designing intuitive and user-centered interfaces.",
+    skills: ["User Flow", "Wireframing", "Prototyping", "UI Design", "Design Systems"],
   },
   {
-    title: 'Design Execution',
-    description: 'High-fidelity UI work with a sharp eye for hierarchy and conversion.',
-    skills: ['Figma', 'Component systems', 'Interaction states', 'Responsive design'],
+    title: "Research & Strategy",
+    description: "Understanding users and defining the right problems to solve.",
+    skills: ["User Research", "Usability Testing", "A/B Testing"],
   },
   {
-    title: 'Collaboration',
-    description: 'Working closely with product, engineering, and stakeholders from kickoff to launch.',
-    skills: ['Design QA', 'Workshop facilitation', 'Handoff', 'Experiment framing'],
+    title: "Tools & Collaboration",
+    description: "Working effectively with tools and cross-functional teams.",
+    skills: ["Figma", "Developer Handoff", "Agile Workflow"],
   },
-]
+];
 
 export const portfolioCategories = ['SaaS Platform', 'E-Commerce', 'Mobile App', 'UX Audit', 'Dashboard']
 
