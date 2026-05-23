@@ -11,7 +11,7 @@ export function HeroSection({ featuredCount }: HeroSectionProps) {
     <section className="section-shell pt-10 pb-14 sm:pt-16">
       <div className="glass-panel relative overflow-hidden px-6 py-10 sm:px-10 sm:py-14">
         <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-r from-primary-200/60 via-transparent to-primary-100/50" />
-        <div className="relative grid gap-10 lg:grid-cols-[1.3fr_0.7fr] lg:items-end">
+        <div className="relative grid gap-10 lg:grid-cols-[1.3fr_0.7fr] items-start">
           <div>
             <div className="mb-6 flex flex-wrap items-center gap-4">
               <img

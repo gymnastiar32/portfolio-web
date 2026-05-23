@@ -1,16 +1,6 @@
-import { supabase } from '../config/supabase'
+import { apiClient } from './apiClient'
 import { slugify } from '../utils/slugify'
 import { validateImageFile } from '../utils/validators'
-
-const BUCKET_NAME = 'portfolio-images'
-
-function assertSupabase() {
-  if (!supabase) {
-    throw new Error('Supabase is not configured. Uploads are unavailable.')
-  }
-
-  return supabase
-}
 
 function buildPath(folder: 'thumbnails' | 'covers' | 'gallery', file: File) {
   const extension = file.name.split('.').pop()?.toLowerCase() ?? 'jpg'
@@ -21,21 +11,11 @@ function buildPath(folder: 'thumbnails' | 'covers' | 'gallery', file: File) {
 async function uploadFile(folder: 'thumbnails' | 'covers' | 'gallery', file: File) {
   validateImageFile(file)
 
-  const client = assertSupabase()
-  const path = buildPath(folder, file)
+  const formData = new FormData()
+  formData.append('folder', folder)
+  formData.append('file', file, buildPath(folder, file))
 
-  const { error } = await client.storage.from(BUCKET_NAME).upload(path, file)
-
-  if (error) {
-    throw error
-  }
-
-  const { data } = client.storage.from(BUCKET_NAME).getPublicUrl(path)
-
-  return {
-    path,
-    url: data.publicUrl,
-  }
+  return apiClient.post<{ path: string, url: string }>('/uploads', formData)
 }
 
 export const uploadService = {
@@ -52,11 +32,6 @@ export const uploadService = {
   },
 
   async removeFile(path: string) {
-    const client = assertSupabase()
-    const { error } = await client.storage.from(BUCKET_NAME).remove([path])
-
-    if (error) {
-      throw error
-    }
+    void path
   },
 }

@@ -53,8 +53,8 @@ export function HomePage() {
         ) : null}
         {!loading && !error && portfolios.length === 0 ? (
           <EmptyState
-            title="No published portfolio in Supabase yet"
-            description="This section only shows published records from Supabase. Create a portfolio in the admin area, then change its status to publish."
+            title="No published portfolio yet"
+            description="This section only shows published records from the hosting database. Create a portfolio in the admin area, then change its status to publish."
             ctaLabel="View portfolio page"
             ctaHref="/portfolio"
           />

@@ -385,7 +385,7 @@ export function PortfolioForm({ initialPortfolio, submitLabel, submitting, error
 
       <div className="flex flex-wrap items-center justify-between gap-3 rounded-3xl border border-primary-200 bg-primary-50 px-5 py-4">
         <p className="text-sm text-primary-900">
-          Uploads will go to <span className="font-semibold">portfolio-images</span>. Make sure your bucket and RLS policies are ready before saving.
+          Uploads will be stored in the hosting portfolio image folder configured by the API.
         </p>
         <Button color="yellow" type="submit" disabled={submitting || uploading}>
           {submitting || uploading ? <Spinner size="sm" className="mr-2" /> : null}

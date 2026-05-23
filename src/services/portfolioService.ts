@@ -1,22 +1,5 @@
-import { supabase } from '../config/supabase'
+import { apiClient } from './apiClient'
 import type { DashboardStats, Portfolio, PortfolioGalleryItem, PortfolioPayload, PortfolioTool } from '../types/portfolio'
-
-const portfolioSelect = `
-  *,
-  portfolio_tools (
-    id,
-    tool_name,
-    sort_order,
-    created_at
-  ),
-  portfolio_gallery (
-    id,
-    image_url,
-    caption,
-    sort_order,
-    created_at
-  )
-`
 
 function normalizeTools(rows: unknown): PortfolioTool[] {
   if (!Array.isArray(rows)) {
@@ -75,41 +58,27 @@ function sortPortfolios(portfolios: Portfolio[]) {
 }
 
 async function queryPortfolios(status?: 'draft' | 'publish') {
-  if (!supabase) {
-    return []
-  }
+  const query = status ? `?status=${encodeURIComponent(status)}` : ''
+  const data = await apiClient.get<Record<string, unknown>[]>(`/portfolios${query}`)
 
-  let query = supabase.from('portfolios').select(portfolioSelect).order('updated_at', { ascending: false })
-
-  if (status) {
-    query = query.eq('status', status)
-  }
-
-  const { data, error } = await query
-
-  if (error) {
-    throw error
-  }
-
-  return (data ?? []).map((row) => normalizePortfolio(row as Record<string, unknown>))
+  return data.map((row) => normalizePortfolio(row))
 }
 
 async function querySinglePortfolio(column: 'id' | 'slug', value: string) {
-  if (!supabase) {
-    return null
-  }
+  const path = column === 'slug'
+    ? `/portfolios/slug/${encodeURIComponent(value)}`
+    : `/portfolios/${encodeURIComponent(value)}`
 
-  const { data, error } = await supabase
-    .from('portfolios')
-    .select(portfolioSelect)
-    .eq(column, value)
-    .maybeSingle()
+  try {
+    const data = await apiClient.get<Record<string, unknown>>(path)
+    return normalizePortfolio(data)
+  } catch (error) {
+    if (error instanceof Error && error.message === 'Portfolio not found.') {
+      return null
+    }
 
-  if (error) {
     throw error
   }
-
-  return data ? normalizePortfolio(data as Record<string, unknown>) : null
 }
 
 function mapPortfolioPayload(payload: PortfolioPayload) {
@@ -132,33 +101,6 @@ function mapPortfolioPayload(payload: PortfolioPayload) {
     result: payload.result,
     lessons_learned: payload.lessons_learned || null,
   }
-}
-
-function mapTools(payload: PortfolioPayload['tools'], portfolioId: string) {
-  return payload.map((tool, index) => ({
-    portfolio_id: portfolioId,
-    tool_name: tool.tool_name,
-    sort_order: index,
-  }))
-}
-
-function mapGallery(payload: PortfolioPayload['gallery'], portfolioId: string) {
-  return payload
-    .filter((item) => item.image_url)
-    .map((item, index) => ({
-      portfolio_id: portfolioId,
-      image_url: item.image_url,
-      caption: item.caption || null,
-      sort_order: index,
-    }))
-}
-
-function assertSupabase() {
-  if (!supabase) {
-    throw new Error('Supabase is not configured. CRUD actions are unavailable.')
-  }
-
-  return supabase
 }
 
 export const portfolioService = {
@@ -190,59 +132,27 @@ export const portfolioService = {
   },
 
   async createPortfolio(payload: PortfolioPayload) {
-    const client = assertSupabase()
-    const { data: authData } = await client.auth.getUser()
+    const data = await apiClient.post<Record<string, unknown>>('/portfolios', {
+      ...mapPortfolioPayload(payload),
+      tools: payload.tools,
+      gallery: payload.gallery,
+    })
 
-    const { data, error } = await client
-      .from('portfolios')
-      .insert({
-        ...mapPortfolioPayload(payload),
-        created_by: authData.user?.id ?? null,
-      })
-      .select('id')
-      .single()
-
-    if (error) {
-      throw error
-    }
-
-    await this.replacePortfolioTools(data.id, payload.tools)
-    await this.replacePortfolioGallery(data.id, payload.gallery)
-
-    const created = await this.getPortfolioById(data.id)
-    if (!created) {
-      throw new Error('Portfolio was created but could not be loaded.')
-    }
-
-    return created
+    return normalizePortfolio(data)
   },
 
   async updatePortfolio(id: string, payload: PortfolioPayload) {
-    const client = assertSupabase()
-    const { error } = await client.from('portfolios').update(mapPortfolioPayload(payload)).eq('id', id)
+    const data = await apiClient.put<Record<string, unknown>>(`/portfolios/${encodeURIComponent(id)}`, {
+      ...mapPortfolioPayload(payload),
+      tools: payload.tools,
+      gallery: payload.gallery,
+    })
 
-    if (error) {
-      throw error
-    }
-
-    await this.replacePortfolioTools(id, payload.tools)
-    await this.replacePortfolioGallery(id, payload.gallery)
-
-    const updated = await this.getPortfolioById(id)
-    if (!updated) {
-      throw new Error('Portfolio was updated but could not be loaded.')
-    }
-
-    return updated
+    return normalizePortfolio(data)
   },
 
   async deletePortfolio(id: string) {
-    const client = assertSupabase()
-    const { error } = await client.from('portfolios').delete().eq('id', id)
-
-    if (error) {
-      throw error
-    }
+    await apiClient.delete<{ ok: boolean }>(`/portfolios/${encodeURIComponent(id)}`)
   },
 
   async getPortfolioTools(portfolioId: string) {
@@ -251,22 +161,11 @@ export const portfolioService = {
   },
 
   async replacePortfolioTools(portfolioId: string, tools: PortfolioPayload['tools']) {
-    const client = assertSupabase()
-    const { error: deleteError } = await client.from('portfolio_tools').delete().eq('portfolio_id', portfolioId)
-
-    if (deleteError) {
-      throw deleteError
+    const portfolio = await this.getPortfolioById(portfolioId)
+    if (!portfolio) {
+      throw new Error('Portfolio not found.')
     }
-
-    if (tools.length === 0) {
-      return
-    }
-
-    const { error } = await client.from('portfolio_tools').insert(mapTools(tools, portfolioId))
-
-    if (error) {
-      throw error
-    }
+    await this.updatePortfolio(portfolioId, { ...portfolio, tools })
   },
 
   async getPortfolioGallery(portfolioId: string) {
@@ -275,23 +174,10 @@ export const portfolioService = {
   },
 
   async replacePortfolioGallery(portfolioId: string, gallery: PortfolioPayload['gallery']) {
-    const client = assertSupabase()
-    const { error: deleteError } = await client.from('portfolio_gallery').delete().eq('portfolio_id', portfolioId)
-
-    if (deleteError) {
-      throw deleteError
+    const portfolio = await this.getPortfolioById(portfolioId)
+    if (!portfolio) {
+      throw new Error('Portfolio not found.')
     }
-
-    const preparedGallery = mapGallery(gallery, portfolioId)
-
-    if (preparedGallery.length === 0) {
-      return
-    }
-
-    const { error } = await client.from('portfolio_gallery').insert(preparedGallery)
-
-    if (error) {
-      throw error
-    }
+    await this.updatePortfolio(portfolioId, { ...portfolio, gallery })
   },
 }

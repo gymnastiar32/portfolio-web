@@ -62,7 +62,7 @@ export function DashboardPage() {
         </div>
         {recent.length === 0 ? (
           <div className="mt-6 rounded-3xl border border-dashed border-stone-300 bg-stone-50 p-8 text-center">
-            <p className="text-lg font-semibold text-stone-900">No portfolio records in Supabase yet</p>
+            <p className="text-lg font-semibold text-stone-900">No portfolio records in the hosting database yet</p>
             <p className="mt-3 text-sm leading-7 text-stone-600">
               Start by creating your first case study. Draft items will appear here immediately, and published items will also show on the public website.
             </p>

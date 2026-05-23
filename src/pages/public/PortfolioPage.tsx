@@ -68,8 +68,8 @@ export function PortfolioPage() {
         ) : null}
         {!loading && !error && portfolios.length === 0 ? (
           <EmptyState
-            title="No published portfolio in Supabase"
-            description="This page only displays published records from Supabase. Add a case study in admin, then publish it to make it visible here."
+            title="No published portfolio yet"
+            description="This page only displays published records from the hosting database. Add a case study in admin, then publish it to make it visible here."
           />
         ) : null}
         {!loading && !error && portfolios.length > 0 && filteredPortfolios.length === 0 ? (

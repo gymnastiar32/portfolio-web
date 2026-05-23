@@ -1,13 +1,12 @@
 import { useEffect, useMemo, useState } from 'react'
-import type { Session, User } from '@supabase/supabase-js'
 import { env } from '../config/env'
-import { supabase } from '../config/supabase'
+import type { ApiSession, ApiUser } from '../services/apiClient'
 import { authService } from '../services/authService'
 import { AuthContext, type AuthContextValue } from './authContext'
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<User | null>(null)
-  const [session, setSession] = useState<Session | null>(null)
+  const [user, setUser] = useState<ApiUser | null>(null)
+  const [session, setSession] = useState<ApiSession | null>(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -15,13 +14,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     async function bootstrapAuth() {
       try {
-        const currentSession = await authService.getSession()
+        const { session: currentSession, user: currentUser } = await authService.getAuthState()
         if (!active) {
           return
         }
 
         setSession(currentSession)
-        setUser(currentSession?.user ?? null)
+        setUser(currentUser)
       } finally {
         if (active) {
           setLoading(false)
@@ -31,23 +30,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     void bootstrapAuth()
 
-    if (!supabase) {
-      return () => {
-        active = false
-      }
-    }
-
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, nextSession) => {
-      setSession(nextSession)
-      setUser(nextSession?.user ?? null)
-      setLoading(false)
-    })
-
     return () => {
       active = false
-      subscription.unsubscribe()
     }
   }, [])
 

@@ -1,7 +1,4 @@
 export const env = {
-  supabaseUrl: import.meta.env.VITE_SUPABASE_URL ?? '',
-  supabaseAnonKey: import.meta.env.VITE_SUPABASE_ANON_KEY ?? '',
+  apiBaseUrl: import.meta.env.VITE_API_BASE_URL ?? '/api',
   adminEmail: (import.meta.env.VITE_ADMIN_EMAIL ?? '').toLowerCase(),
 }
-
-export const isSupabaseConfigured = Boolean(env.supabaseUrl && env.supabaseAnonKey)

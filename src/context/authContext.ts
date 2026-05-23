@@ -1,9 +1,9 @@
 import { createContext } from 'react'
-import type { Session, User } from '@supabase/supabase-js'
+import type { ApiSession, ApiUser } from '../services/apiClient'
 
 export interface AuthContextValue {
-  user: User | null
-  session: Session | null
+  user: ApiUser | null
+  session: ApiSession | null
   loading: boolean
   isAuthenticated: boolean
   isAdmin: boolean
