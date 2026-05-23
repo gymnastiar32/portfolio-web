@@ -2,22 +2,29 @@
 
 Use `deploy/portfolio-hosting-api.zip` for cPanel upload.
 
+Production domain:
+
+```text
+https://portfolio.gymapp.my.id
+```
+
 ## Upload
 
 1. Open cPanel File Manager.
-2. Go to `public_html`.
+2. Go to the document root for `portfolio.gymapp.my.id` shown in cPanel Subdomains.
 3. Upload and extract `deploy/portfolio-hosting-api.zip`.
 4. Confirm these files exist:
-   - `public_html/api/.htaccess`
-   - `public_html/api/index.php`
-   - `public_html/api/config.template.php`
-   - `public_html/uploads/portfolio-images/thumbnails/.gitkeep`
-   - `public_html/uploads/portfolio-images/covers/.gitkeep`
-   - `public_html/uploads/portfolio-images/gallery/.gitkeep`
+   - `SUBDOMAIN_ROOT/.htaccess`
+   - `SUBDOMAIN_ROOT/api/.htaccess`
+   - `SUBDOMAIN_ROOT/api/index.php`
+   - `SUBDOMAIN_ROOT/api/config.template.php`
+   - `SUBDOMAIN_ROOT/uploads/portfolio-images/thumbnails/.gitkeep`
+   - `SUBDOMAIN_ROOT/uploads/portfolio-images/covers/.gitkeep`
+   - `SUBDOMAIN_ROOT/uploads/portfolio-images/gallery/.gitkeep`
 
 ## Configure
 
-1. Rename `public_html/api/config.template.php` to `public_html/api/config.php`.
+1. Rename `SUBDOMAIN_ROOT/api/config.template.php` to `SUBDOMAIN_ROOT/api/config.php`.
 2. Replace `ISI_PASSWORD_DATABASE_CPANEL_DI_SINI` with the cPanel database password.
 3. Generate the admin password hash locally:
 
@@ -44,7 +51,7 @@ php -r "echo password_hash('password-admin-kamu', PASSWORD_DEFAULT);"
 Open:
 
 ```text
-https://gymapp.my.id/api/auth/me
+https://portfolio.gymapp.my.id/api/auth/me
 ```
 
 Expected:
@@ -56,7 +63,7 @@ Expected:
 Open:
 
 ```text
-https://gymapp.my.id/api/portfolios?status=publish
+https://portfolio.gymapp.my.id/api/portfolios?status=publish
 ```
 
 Expected initial response can be:
@@ -72,6 +79,7 @@ Keep local `.env` as:
 ```env
 VITE_API_BASE_URL=/api
 VITE_ADMIN_EMAIL=gymnastiar32@gmail.com
+VITE_DEV_API_PROXY_TARGET=https://portfolio.gymapp.my.id
 ```
 
 Run:
@@ -80,4 +88,25 @@ Run:
 npm run dev
 ```
 
-Vite proxies `/api` to `https://gymapp.my.id`, so the local app uses the hosting database through the hosting PHP API.
+Vite proxies `/api` to `https://portfolio.gymapp.my.id`, so the local app uses the hosting database through the hosting PHP API.
+
+## Frontend Deploy
+
+Build locally:
+
+```powershell
+npm run deploy:build
+```
+
+Upload the contents of `dist/` into the same subdomain document root. Upload the contents, not the `dist` folder itself.
+
+The final hosting structure should look like this:
+
+```text
+SUBDOMAIN_ROOT/
+  .htaccess
+  index.html
+  assets/
+  api/
+  uploads/
+```
