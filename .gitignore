@@ -16,6 +16,8 @@ dist-ssr
 !.env.example
 api/config.php
 uploads/
+!deploy/portfolio-hosting-api/uploads/
+!deploy/portfolio-hosting-api/uploads/**
 
 # Editor directories and files
 .vscode/*

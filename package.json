@@ -7,6 +7,8 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "deploy:build": "npm run build",
+    "deploy:api:zip": "bash scripts/build-hosting-api-package.sh",
+    "deploy:site:zip": "npm run build && bash scripts/build-hosting-site-package.sh",
     "check": "npm run lint && npm run build",
     "lint": "eslint .",
     "preview": "vite preview"
