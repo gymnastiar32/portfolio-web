@@ -20,7 +20,7 @@ export function Footer() {
 
   return (
     <footer className="section-shell py-10">
-      <FlowbiteFooter container className="rounded-3xl border border-white/70 bg-white/85 shadow-sm">
+      <FlowbiteFooter container className="rounded-2xl border border-primary-100 bg-white shadow-sm">
         <div className="w-full">
           <div className="flex flex-col w-full gap-8 lg:flex-row lg:items-start lg:justify-between">
             <div>
@@ -29,7 +29,7 @@ export function Footer() {
             </div>
             <div className={`grid gap-8 ${socialLinks.length > 0 ? 'sm:grid-cols-2' : ''}`}>
               <div>
-                <h3 className="mb-4 text-sm font-semibold tracking-[0.24em] text-stone-500 uppercase">Explore</h3>
+                <h3 className="mb-4 text-sm font-semibold text-stone-500 uppercase">Explore</h3>
                 <FooterLinkGroup col>
                   <FooterLink href="/">Home</FooterLink>
                   <FooterLink href="/portfolio">Portfolio</FooterLink>
@@ -37,7 +37,7 @@ export function Footer() {
               </div>
               {socialLinks.length > 0 ? (
                 <div>
-                  <h3 className="mb-4 text-sm font-semibold tracking-[0.24em] text-stone-500 uppercase">Social</h3>
+                  <h3 className="mb-4 text-sm font-semibold text-stone-500 uppercase">Social</h3>
                   <div className="flex flex-wrap gap-4 text-stone-500">
                     {socialLinks.map((link) => (
                       <FooterIcon key={link.label} href={link.href} icon={link.icon} aria-label={link.label} />

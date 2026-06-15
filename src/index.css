@@ -40,11 +40,10 @@
   }
 
   body {
-    @apply min-h-screen bg-stone-50 text-stone-900 antialiased;
+    @apply min-h-screen bg-primary-100 text-stone-900 antialiased;
     background-image:
-      radial-gradient(circle at top left, rgba(248, 207, 105, 0.28), transparent 28%),
-      radial-gradient(circle at bottom right, rgba(132, 92, 17, 0.12), transparent 24%),
-      linear-gradient(180deg, #fffdf6 0%, #f7f2e8 100%);
+      linear-gradient(90deg, rgba(235, 183, 59, 0.72) 0%, rgba(235, 183, 59, 0.72) 7%, transparent 7%, transparent 93%, rgba(235, 183, 59, 0.72) 93%),
+      linear-gradient(180deg, #fffdf7 0%, #faf4e8 55%, #fffdf7 100%);
   }
 
   #root {
@@ -60,7 +59,7 @@
   h3,
   h4 {
     font-family: var(--font-serif);
-    letter-spacing: -0.02em;
+    letter-spacing: 0;
   }
 
   ::selection {
@@ -74,11 +73,11 @@
   }
 
   .section-kicker {
-    @apply mb-3 inline-flex items-center gap-2 rounded-full border border-primary-200/70 bg-white/80 px-3 py-1 text-xs font-semibold tracking-[0.28em] text-primary-700 uppercase backdrop-blur;
+    @apply mb-3 inline-flex items-center gap-2 rounded-full border border-primary-200/80 bg-white px-3 py-1 text-xs font-semibold text-primary-700 uppercase;
   }
 
   .glass-panel {
-    @apply rounded-3xl border border-white/60 bg-white/70 shadow-xl shadow-primary-900/5 backdrop-blur;
+    @apply rounded-2xl border border-primary-100 bg-white shadow-sm;
   }
 
   .admin-panel {

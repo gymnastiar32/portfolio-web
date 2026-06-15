@@ -2,13 +2,13 @@ import type { Portfolio, PortfolioFormValues } from '../types/portfolio'
 
 export const siteProfile = {
   name: 'Gymnastiar Ramadhan',
-  headline: 'UI/UX Designer Focused on Problem-Solving and Functional, Aesthetic Design',
+  headline: 'UI/UX Designer and Frontend Developer Focused on Functional, Aesthetic Digital Products',
   shortBio:
-    'UI/UX Designer with 5 years of experience, focused on problem-solving and creating functional, aesthetic designs through a user-centered approach. Experienced in handling the full process from research and wireframing to prototyping to deliver effective and meaningful user experiences.',
+    'UI/UX Designer with 5 years of experience, focused on problem-solving and creating functional, aesthetic designs through a user-centered approach. Experienced in shaping ideas from research, wireframing, and prototyping into responsive frontend code using React, HTML, CSS, and JavaScript.',
   profileImage:
-    '/img/profile.jpeg',
+    '/img/profile-new.png',
   location: 'Jakarta, Indonesia',
-  availability: 'Available for selective freelance and in-house collaborations',
+  availability: 'Freelance and in-house collaboration information available by email',
   yearsOfExperience: '5+ years',
   email: 'gymnastiar32@gmail.com',
   links: {
@@ -23,7 +23,7 @@ export const siteProfile = {
 export const skillGroups = [
   {
     title: "UI/UX Design",
-    description: "Designing intuitive and user-centered interfaces.",
+    description: "Designing intuitive, user-centered interfaces from flows to polished screens.",
     skills: ["User Flow", "Wireframing", "Prototyping", "UI Design", "Design Systems"],
   },
   {
@@ -32,9 +32,14 @@ export const skillGroups = [
     skills: ["User Research", "Usability Testing", "A/B Testing"],
   },
   {
+    title: "Frontend Development",
+    description: "Coding responsive, interactive interfaces with clean structure and smooth UI behavior.",
+    skills: ["React", "HTML", "CSS", "JavaScript", "Tailwind CSS", "Responsive UI"],
+  },
+  {
     title: "Tools & Collaboration",
     description: "Working effectively with tools and cross-functional teams.",
-    skills: ["Figma", "Developer Handoff", "Agile Workflow"],
+    skills: ["Figma", "Developer Handoff", "Design-to-Code", "GitHub", "Agile Workflow"],
   },
 ];
 

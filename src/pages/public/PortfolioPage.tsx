@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { EmptyState } from '../../components/common/EmptyState'
 import { LoadingState } from '../../components/common/LoadingState'
+import { Reveal } from '../../components/common/Reveal'
 import { PortfolioFilterBar } from '../../components/public/PortfolioFilterBar'
 import { PortfolioGrid } from '../../components/public/PortfolioGrid'
 import { useDocumentTitle } from '../../hooks/useDocumentTitle'
@@ -45,21 +46,23 @@ export function PortfolioPage() {
 
   return (
     <section className="section-shell py-12">
-      <div className="mb-8">
+      <Reveal className="mb-8">
         <p className="section-kicker">Portfolio Archive</p>
-        <h1 className="text-4xl text-stone-900 sm:text-5xl">Design case studies built around clarity, trust, and product momentum.</h1>
+        <h1 className="text-4xl text-stone-900 sm:text-5xl">Design and frontend development case studies built around clarity, trust, and product momentum.</h1>
         <p className="mt-4 max-w-3xl text-base leading-8 text-stone-600">
-          Browse published work across dashboards, checkout journeys, and UX diagnostics. Each case study focuses on how the interface helped a team or product move forward.
+          Browse published work across dashboards, checkout journeys, and UX diagnostics. Each case study focuses on how the interface, interaction, and coded frontend helped a team or product move forward.
         </p>
-      </div>
+      </Reveal>
 
-      <PortfolioFilterBar
-        search={search}
-        category={category}
-        categories={categories}
-        onSearchChange={setSearch}
-        onCategoryChange={setCategory}
-      />
+      <Reveal delay={0.08} y={16}>
+        <PortfolioFilterBar
+          search={search}
+          category={category}
+          categories={categories}
+          onSearchChange={setSearch}
+          onCategoryChange={setCategory}
+        />
+      </Reveal>
 
       <div className="mt-8">
         {loading ? <LoadingState label="Loading published portfolio..." /> : null}

@@ -1,6 +1,7 @@
 import { Navbar as FlowbiteNavbar, NavbarCollapse, NavbarLink, NavbarToggle } from 'flowbite-react'
 import { useEffect, useRef, useState } from 'react'
 import { useLocation } from 'react-router-dom'
+import { siteProfile } from '../../data/fallbackData'
 import { cn } from '../../utils/cn'
 
 const homeSections = ['about', 'skills', 'portfolio', 'contact'] as const
@@ -87,23 +88,29 @@ export function Navbar() {
 
   const linkClassName = (isActive: boolean) =>
     cn(
-      'rounded-xl px-5! py-2 text-sm font-semibold transition-all duration-200',
+      'rounded-full px-4! py-2 text-sm font-semibold transition-all duration-200',
       isActive
-        ? 'bg-stone-950! text-white! shadow-sm'
+        ? 'bg-primary-100! text-primary-800!'
         : 'text-stone-600! hover:bg-primary-50 hover:text-primary-800',
     )
 
   return (
-    <div ref={navbarRef} className="sticky top-0 z-40 border-b border-white/70 bg-stone-50/85 backdrop-blur-xl">
+    <div ref={navbarRef} className="sticky top-0 z-40 bg-primary-100/80 px-4 py-3 backdrop-blur-xl sm:px-6">
       <FlowbiteNavbar
         fluid
         rounded={false}
-        className="relative mx-auto w-full border border-white/60 bg-white/75 px-4 py-2 shadow-sm sm:px-6 sm:py-8"
+        className="relative mx-auto w-full max-w-7xl rounded-2xl border border-primary-100 bg-white px-4 py-3 shadow-sm sm:px-6"
       >
-        <div className="flex items-center justify-end gap-3">
+        <a href="/" className="flex items-center gap-3">
+          <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary-500 text-lg font-bold text-white">
+            {siteProfile.name.charAt(0)}
+          </span>
+          <span className="text-sm font-bold text-stone-950 sm:text-base">{siteProfile.name}</span>
+        </a>
+        <div className="flex items-center justify-end gap-3 md:hidden">
           <NavbarToggle />
         </div>
-        <NavbarCollapse className="mt-4 w-full rounded-2xl border border-stone-200/80 bg-white/90 p-2 md:absolute md:left-1/2 md:top-1/2 md:mt-0 md:flex md:w-auto md:-translate-x-1/2 md:-translate-y-1/2 md:justify-center md:gap-3 md:border-0 md:bg-transparent md:p-0">
+        <NavbarCollapse className="mt-4 w-full rounded-2xl border border-stone-200/80 bg-white p-2 md:absolute md:left-1/2 md:top-1/2 md:mt-0 md:flex md:w-auto md:-translate-x-1/2 md:-translate-y-1/2 md:justify-center md:gap-1 md:border-0 md:bg-transparent md:p-0">
           <NavbarLink className={linkClassName(location.pathname === '/' && resolvedActiveNav === '')} href="/" active={location.pathname === '/' && resolvedActiveNav === ''}>
             Home
           </NavbarLink>
@@ -124,6 +131,12 @@ export function Navbar() {
             Contact
           </NavbarLink>
         </NavbarCollapse>
+        <a
+          href="/#contact"
+          className="hidden rounded-xl border border-primary-500 px-5 py-2 text-sm font-semibold text-primary-700 transition hover:bg-primary-500 hover:text-white md:inline-flex"
+        >
+          Contact
+        </a>
       </FlowbiteNavbar>
     </div>
   )

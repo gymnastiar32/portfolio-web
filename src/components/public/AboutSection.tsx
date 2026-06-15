@@ -1,34 +1,64 @@
+import { HiCodeBracket, HiComputerDesktop, HiDevicePhoneMobile, HiSwatch } from 'react-icons/hi2'
 import { siteProfile } from '../../data/fallbackData'
+import { Reveal } from '../common/Reveal'
 import { SectionHeading } from '../common/SectionHeading'
+
+const services = [
+  {
+    title: 'Website Design',
+    description: 'Clean interfaces for landing pages, portfolios, and product websites.',
+    icon: HiComputerDesktop,
+  },
+  {
+    title: 'Mobile App Design',
+    description: 'User flows, wireframes, and polished mobile UI for core journeys.',
+    icon: HiDevicePhoneMobile,
+  },
+  {
+    title: 'Frontend Development',
+    description: 'Responsive React, HTML, CSS, and JavaScript interfaces with smooth interaction details.',
+    icon: HiCodeBracket,
+  },
+  {
+    title: 'Brand Identity',
+    description: 'Visual direction and UI foundations that keep products consistent.',
+    icon: HiSwatch,
+  },
+]
 
 export function AboutSection() {
   return (
     <section id="about" className="section-shell scroll-mt-28 py-14 sm:scroll-mt-32">
-      <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr]">
-        <SectionHeading
-          kicker="About"
-          title="Designing user-centered experiences that solve real problems."
-          description="I focus on turning complex ideas into simple, functional, and visually appealing digital solutions that deliver real value to users."
-        />
-        <div className="glass-panel p-7 sm:p-8">
-          <p className="text-sm leading-8 text-stone-700 sm:text-base">
-            {siteProfile.shortBio} I approach design by understanding user needs and business goals, then translating them into intuitive interfaces. From research and wireframing to prototyping, I aim to create experiences that are not only usable but also meaningful.
-          </p>
-          <div className="mt-8 grid gap-4 md:grid-cols-3">
-            <div className="rounded-2xl bg-stone-950 px-5 py-4 text-stone-50">
-              <p className="text-xs uppercase tracking-[0.28em] text-primary-300">Experience</p>
-              <p className="mt-2 text-2xl font-semibold">{siteProfile.yearsOfExperience}</p>
-            </div>
-            <div className="rounded-2xl bg-primary-100 px-5 py-4 text-primary-900">
-              <p className="text-xs uppercase tracking-[0.28em]">Specialty</p>
-              <p className="mt-2 text-lg font-semibold">User-centered design</p>
-            </div>
-            <div className="rounded-2xl bg-white px-5 py-4 text-stone-900 shadow-sm ring-1 ring-stone-200">
-              <p className="text-xs uppercase tracking-[0.28em] text-stone-500">Work style</p>
-              <p className="mt-2 text-lg font-semibold">Problem-solving & detail-oriented</p>
-            </div>
-          </div>
+      <div className="grid items-start gap-10 lg:grid-cols-[0.78fr_1fr]">
+        <div className="space-y-4">
+          {services.map((service, index) => {
+            const Icon = service.icon
+
+            return (
+              <Reveal
+                key={service.title}
+                delay={0.07 * index}
+                y={18}
+                className="flex gap-4 rounded-2xl border border-primary-100 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-lg hover:shadow-primary-900/5"
+              >
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-primary-100 text-primary-700">
+                  <Icon className="h-5 w-5" />
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-stone-950">{service.title}</p>
+                  <p className="mt-1 text-sm leading-6 text-stone-600">{service.description}</p>
+                </div>
+              </Reveal>
+            )
+          })}
         </div>
+        <Reveal delay={0.12}>
+          <SectionHeading
+            kicker="Overview"
+            title="I connect product thinking, UI design, and frontend implementation."
+            description={`${siteProfile.shortBio} I connect research, wireframes, prototypes, interface systems, and responsive frontend implementation so design intent remains consistent in code.`}
+          />
+        </Reveal>
       </div>
     </section>
   )

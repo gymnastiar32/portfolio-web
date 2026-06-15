@@ -1,10 +1,11 @@
 import { Badge } from 'flowbite-react'
 import type { Portfolio } from '../../types/portfolio'
+import { Reveal } from '../common/Reveal'
 
 export function PortfolioDetailHeader({ portfolio }: { portfolio: Portfolio }) {
   return (
     <header className="section-shell pt-10 pb-8">
-      <div className="glass-panel overflow-hidden">
+      <Reveal className="glass-panel overflow-hidden">
         <div className="grid gap-8 p-6 sm:p-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-end">
           <div>
             <Badge color="yellow" className="w-fit rounded-full px-3 py-1">
@@ -23,15 +24,15 @@ export function PortfolioDetailHeader({ portfolio }: { portfolio: Portfolio }) {
               </div>
             </dl>
           </div>
-          <div className="overflow-hidden rounded-3xl bg-stone-950 shadow-2xl shadow-stone-900/15">
+          <Reveal delay={0.12} y={18} className="overflow-hidden rounded-3xl bg-stone-950 shadow-2xl shadow-stone-900/15">
             <img
               src={portfolio.cover_image_url || portfolio.thumbnail_url}
               alt={portfolio.title}
-              className="h-full min-h-64 w-full object-cover sm:min-h-80"
+              className="h-full min-h-64 w-full object-cover transition duration-700 hover:scale-[1.03] sm:min-h-80"
             />
-          </div>
+          </Reveal>
         </div>
-      </div>
+      </Reveal>
     </header>
   )
 }
