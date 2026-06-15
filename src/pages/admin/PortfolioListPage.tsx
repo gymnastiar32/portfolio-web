@@ -4,7 +4,7 @@ import { HiMagnifyingGlass } from 'react-icons/hi2'
 import { DeleteConfirmModal } from '../../components/admin/DeleteConfirmModal'
 import { PortfolioTable } from '../../components/admin/PortfolioTable'
 import { EmptyState } from '../../components/common/EmptyState'
-import { LoadingState } from '../../components/common/LoadingState'
+import { AdminTableSkeleton } from '../../components/common/PageSkeletons'
 import { useDocumentTitle } from '../../hooks/useDocumentTitle'
 import { portfolioService } from '../../services/portfolioService'
 import type { Portfolio } from '../../types/portfolio'
@@ -95,7 +95,7 @@ export function PortfolioListPage() {
         </div>
       </div>
 
-      {loading ? <LoadingState label="Loading portfolio list..." /> : null}
+      {loading ? <AdminTableSkeleton /> : null}
       {!loading && error ? <EmptyState title="Portfolio list unavailable" description={error} ctaLabel="Create a case study" ctaHref="/admin/portfolio/create" /> : null}
       {!loading && !error && filteredPortfolios.length === 0 ? (
         <EmptyState

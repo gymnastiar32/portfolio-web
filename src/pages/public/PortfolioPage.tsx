@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { EmptyState } from '../../components/common/EmptyState'
-import { LoadingState } from '../../components/common/LoadingState'
+import { PortfolioGridSkeleton } from '../../components/common/PageSkeletons'
 import { Reveal } from '../../components/common/Reveal'
 import { PortfolioFilterBar } from '../../components/public/PortfolioFilterBar'
 import { PortfolioGrid } from '../../components/public/PortfolioGrid'
@@ -65,7 +65,7 @@ export function PortfolioPage() {
       </Reveal>
 
       <div className="mt-8">
-        {loading ? <LoadingState label="Loading published portfolio..." /> : null}
+        {loading ? <PortfolioGridSkeleton /> : null}
         {!loading && error ? (
           <EmptyState title="Portfolio could not be loaded" description={error} ctaLabel="Go home" ctaHref="/" />
         ) : null}

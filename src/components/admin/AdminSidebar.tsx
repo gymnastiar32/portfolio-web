@@ -6,8 +6,8 @@ export function AdminSidebar() {
   const location = useLocation()
 
   return (
-    <Sidebar aria-label="Admin sidebar" className="h-full rounded-3xl border border-stone-200 bg-white">
-      <SidebarItems>
+    <Sidebar aria-label="Admin sidebar" className="h-full rounded-3xl border border-stone-200 bg-white overflow-clip">
+      <SidebarItems className='rounded-3xl'>
         <SidebarItemGroup>
           <SidebarItem href="/admin" active={location.pathname === '/admin'} icon={HiHome}>
             Dashboard

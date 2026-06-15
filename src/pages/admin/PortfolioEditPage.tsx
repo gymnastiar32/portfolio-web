@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { PortfolioForm } from '../../components/admin/PortfolioForm'
 import { EmptyState } from '../../components/common/EmptyState'
-import { LoadingState } from '../../components/common/LoadingState'
+import { AdminFormSkeleton } from '../../components/common/PageSkeletons'
 import { useDocumentTitle } from '../../hooks/useDocumentTitle'
 import { portfolioService } from '../../services/portfolioService'
 import type { Portfolio, PortfolioPayload } from '../../types/portfolio'
@@ -51,7 +51,7 @@ export function PortfolioEditPage() {
   }
 
   if (loading) {
-    return <LoadingState label="Loading portfolio data..." />
+    return <AdminFormSkeleton />
   }
 
   if (!portfolio) {

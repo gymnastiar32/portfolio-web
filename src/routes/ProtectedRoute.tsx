@@ -1,6 +1,6 @@
 import { Alert } from 'flowbite-react'
 import { Navigate, Outlet, useLocation } from 'react-router-dom'
-import { LoadingState } from '../components/common/LoadingState'
+import { AdminShellSkeleton } from '../components/common/PageSkeletons'
 import { env } from '../config/env'
 import { useAuth } from '../hooks/useAuth'
 
@@ -9,7 +9,7 @@ export function ProtectedRoute() {
   const location = useLocation()
 
   if (loading) {
-    return <LoadingState label="Checking your admin session..." />
+    return <AdminShellSkeleton />
   }
 
   if (!isAuthenticated) {

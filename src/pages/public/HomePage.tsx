@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Button } from 'flowbite-react'
 import { Link } from 'react-router-dom'
 import { EmptyState } from '../../components/common/EmptyState'
-import { LoadingState } from '../../components/common/LoadingState'
+import { PortfolioGridSkeleton } from '../../components/common/PageSkeletons'
 import { Reveal } from '../../components/common/Reveal'
 import { AboutSection } from '../../components/public/AboutSection'
 import { ContactSection } from '../../components/public/ContactSection'
@@ -54,7 +54,7 @@ export function HomePage() {
             View archive
           </Button>
         </Reveal>
-        {loading ? <LoadingState label="Loading featured portfolio..." /> : null}
+        {loading ? <PortfolioGridSkeleton /> : null}
         {!loading && error ? (
           <EmptyState title="Featured work is unavailable" description={error} ctaLabel="Browse all work" ctaHref="/portfolio" />
         ) : null}

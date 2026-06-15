@@ -1,6 +1,6 @@
 import { lazy, Suspense } from 'react'
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
-import { LoadingState } from '../components/common/LoadingState'
+import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom'
+import { AdminShellSkeleton, PublicRouteSkeleton } from '../components/common/PageSkeletons'
 import { AdminLayout } from '../layouts/AdminLayout'
 import { PublicLayout } from '../layouts/PublicLayout'
 import { ProtectedRoute } from './ProtectedRoute'
@@ -26,16 +26,20 @@ const PortfolioEditPage = lazy(() =>
   import('../pages/admin/PortfolioEditPage').then((module) => ({ default: module.PortfolioEditPage })),
 )
 
+function RouteFallback() {
+  const location = useLocation()
+
+  if (location.pathname.startsWith('/admin') && location.pathname !== '/admin/login') {
+    return <AdminShellSkeleton />
+  }
+
+  return <PublicRouteSkeleton />
+}
+
 export function AppRouter() {
   return (
     <BrowserRouter>
-      <Suspense
-        fallback={
-          <div className="section-shell py-12">
-            <LoadingState label="Loading page..." />
-          </div>
-        }
-      >
+      <Suspense fallback={<RouteFallback />}>
         <Routes>
           <Route element={<PublicLayout />}>
             <Route path="/" element={<HomePage />} />

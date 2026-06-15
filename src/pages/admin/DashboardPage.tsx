@@ -2,7 +2,7 @@ import { Button } from 'flowbite-react'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { EmptyState } from '../../components/common/EmptyState'
-import { LoadingState } from '../../components/common/LoadingState'
+import { AdminDashboardSkeleton } from '../../components/common/PageSkeletons'
 import { StatsCard } from '../../components/admin/StatsCard'
 import { useDocumentTitle } from '../../hooks/useDocumentTitle'
 import { portfolioService } from '../../services/portfolioService'
@@ -36,7 +36,7 @@ export function DashboardPage() {
   }, [])
 
   if (loading) {
-    return <LoadingState label="Loading dashboard..." />
+    return <AdminDashboardSkeleton />
   }
 
   if (error || !stats) {

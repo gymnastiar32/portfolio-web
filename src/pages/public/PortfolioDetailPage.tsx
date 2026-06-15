@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { EmptyState } from '../../components/common/EmptyState'
-import { LoadingState } from '../../components/common/LoadingState'
+import { PortfolioDetailSkeleton } from '../../components/common/PageSkeletons'
 import { CaseStudySection } from '../../components/public/CaseStudySection'
 import { PortfolioDetailHeader } from '../../components/public/PortfolioDetailHeader'
 import { useDocumentTitle } from '../../hooks/useDocumentTitle'
@@ -37,11 +37,7 @@ export function PortfolioDetailPage() {
   }, [slug])
 
   if (loading) {
-    return (
-      <div className="section-shell py-14">
-        <LoadingState label="Loading case study..." />
-      </div>
-    )
+    return <PortfolioDetailSkeleton />
   }
 
   if (error || !portfolio) {
