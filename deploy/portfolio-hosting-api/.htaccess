@@ -2,7 +2,8 @@
   RewriteEngine On
   RewriteBase /
 
-  RewriteRule ^api($|/) - [L]
+  RewriteRule ^api/?$ api/index.php [QSA,L]
+  RewriteRule ^api/.*$ api/index.php [QSA,L]
   RewriteRule ^index\.html$ - [L]
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d

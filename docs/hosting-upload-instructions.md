@@ -1,6 +1,10 @@
 # Hosting Upload Instructions
 
-Use `deploy/portfolio-hosting-api.zip` for cPanel upload.
+Use `deploy/portfolio-hosting-api.zip` for cPanel upload. Rebuild it after API changes with:
+
+```powershell
+npm run deploy:api:zip
+```
 
 Production domain:
 
@@ -12,8 +16,9 @@ https://portfolio.gymapp.my.id
 
 1. Open cPanel File Manager.
 2. Go to the document root for `portfolio.gymapp.my.id` shown in cPanel Subdomains.
-3. Upload and extract `deploy/portfolio-hosting-api.zip`.
-4. Confirm these files exist:
+3. Upload `deploy/portfolio-hosting-api.zip` into the `portfolio.gymapp.my.id` folder.
+4. Extract the ZIP in that same folder. The ZIP is built without a wrapper folder, so its contents should merge directly into the subdomain root.
+5. Confirm these files exist directly inside `portfolio.gymapp.my.id`:
    - `SUBDOMAIN_ROOT/.htaccess`
    - `SUBDOMAIN_ROOT/api/.htaccess`
    - `SUBDOMAIN_ROOT/api/index.php`
@@ -21,6 +26,8 @@ https://portfolio.gymapp.my.id
    - `SUBDOMAIN_ROOT/uploads/portfolio-images/thumbnails/.gitkeep`
    - `SUBDOMAIN_ROOT/uploads/portfolio-images/covers/.gitkeep`
    - `SUBDOMAIN_ROOT/uploads/portfolio-images/gallery/.gitkeep`
+
+If `/api/auth/me` returns the React `index.html` page or an HTML 404 instead of JSON, the API folder is not in the active document root or the root `.htaccess` was not uploaded.
 
 ## Configure
 
