@@ -1,4 +1,6 @@
 import { Badge } from 'flowbite-react'
+import { useEffect, useState } from 'react'
+import { HiXMark } from 'react-icons/hi2'
 import type { Portfolio } from '../../types/portfolio'
 import { Reveal } from '../common/Reveal'
 
@@ -12,6 +14,29 @@ function StudyBlock({ title, content, delay = 0 }: { title: string; content: str
 }
 
 export function CaseStudySection({ portfolio }: { portfolio: Portfolio }) {
+  const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null)
+  const selectedImage = selectedImageIndex === null ? null : portfolio.gallery[selectedImageIndex]
+
+  useEffect(() => {
+    if (selectedImageIndex === null) {
+      return
+    }
+
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === 'Escape') {
+        setSelectedImageIndex(null)
+      }
+    }
+
+    document.body.style.overflow = 'hidden'
+    window.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      document.body.style.overflow = ''
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [selectedImageIndex])
+
   return (
     <div className="section-shell pb-16">
       <div className="grid gap-10 lg:grid-cols-[0.72fr_0.28fr]">
@@ -36,11 +61,18 @@ export function CaseStudySection({ portfolio }: { portfolio: Portfolio }) {
                     className="overflow-hidden rounded-3xl bg-stone-100"
                   >
                     <figure>
-                      <img
-                        src={item.image_url}
-                        alt={item.caption ?? portfolio.title}
-                        className="h-72 w-full object-cover transition duration-700 hover:scale-[1.03]"
-                      />
+                      <button
+                        type="button"
+                        className="group block h-72 w-full cursor-zoom-in overflow-hidden text-left focus:outline-none focus-visible:ring-4 focus-visible:ring-primary-300"
+                        onClick={() => setSelectedImageIndex(index)}
+                        aria-label={`Preview ${item.caption ?? portfolio.title}`}
+                      >
+                        <img
+                          src={item.image_url}
+                          alt={item.caption ?? portfolio.title}
+                          className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.03]"
+                        />
+                      </button>
                       {item.caption ? (
                         <figcaption className="px-4 py-3 text-sm leading-7 text-stone-600">{item.caption}</figcaption>
                       ) : null}
@@ -72,6 +104,43 @@ export function CaseStudySection({ portfolio }: { portfolio: Portfolio }) {
           </Reveal>
         </aside>
       </div>
+      {selectedImage ? (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-stone-950/90 px-4 py-6 backdrop-blur-sm sm:px-6"
+          role="dialog"
+          aria-modal="true"
+          aria-label={selectedImage.caption ?? portfolio.title}
+          onClick={() => setSelectedImageIndex(null)}
+        >
+          <div className="relative flex max-h-full w-full max-w-6xl flex-col gap-4" onClick={(event) => event.stopPropagation()}>
+            <button
+              type="button"
+              className="absolute right-3 top-3 z-10 inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/95 text-stone-900 shadow-lg transition hover:bg-white focus:outline-none focus-visible:ring-4 focus-visible:ring-primary-300"
+              onClick={() => setSelectedImageIndex(null)}
+              aria-label="Close image preview"
+            >
+              <HiXMark className="h-6 w-6" aria-hidden="true" />
+            </button>
+            <div className="relative flex h-[76vh] max-h-[760px] min-h-[360px] w-full items-center justify-center overflow-hidden rounded-2xl bg-stone-950 shadow-2xl shadow-stone-950/40">
+              <img
+                src={selectedImage.image_url}
+                alt=""
+                aria-hidden="true"
+                className="absolute inset-0 h-full w-full scale-110 object-cover opacity-45 blur-2xl"
+              />
+              <div className="absolute inset-0 bg-stone-950/35" aria-hidden="true" />
+              <img
+                src={selectedImage.image_url}
+                alt={selectedImage.caption ?? portfolio.title}
+                className="relative z-10 max-h-full max-w-full object-contain"
+              />
+            </div>
+            {selectedImage.caption ? (
+              <p className="rounded-2xl bg-white px-5 py-3 text-sm leading-7 text-stone-700 shadow-lg">{selectedImage.caption}</p>
+            ) : null}
+          </div>
+        </div>
+      ) : null}
     </div>
   )
 }
