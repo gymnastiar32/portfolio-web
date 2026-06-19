@@ -22,6 +22,9 @@ function normalizeGallery(rows: unknown): PortfolioGalleryItem[] {
 }
 
 function normalizePortfolio(row: Record<string, unknown>): Portfolio {
+  const tools = row.tools ?? row.portfolio_tools
+  const gallery = row.gallery ?? row.portfolio_gallery
+
   return {
     id: String(row.id),
     title: String(row.title ?? ''),
@@ -44,8 +47,8 @@ function normalizePortfolio(row: Record<string, unknown>): Portfolio {
     created_by: row.created_by ? String(row.created_by) : '',
     created_at: row.created_at ? String(row.created_at) : '',
     updated_at: row.updated_at ? String(row.updated_at) : '',
-    tools: normalizeTools(row.portfolio_tools),
-    gallery: normalizeGallery(row.portfolio_gallery),
+    tools: normalizeTools(tools),
+    gallery: normalizeGallery(gallery),
   }
 }
 

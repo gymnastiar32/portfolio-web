@@ -3,7 +3,23 @@ import { z } from 'zod'
 export const MAX_IMAGE_SIZE = 5 * 1024 * 1024
 export const slugPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/
 
-const urlOrEmpty = z.union([z.string().url('Please provide a valid URL.'), z.literal('')])
+function isValidImageSource(value: string) {
+  const trimmed = value.trim()
+
+  if (trimmed.startsWith('/uploads/')) {
+    return true
+  }
+
+  try {
+    new URL(trimmed)
+    return true
+  } catch {
+    return false
+  }
+}
+
+const imageSource = z.string().trim().refine(isValidImageSource, 'Add a valid image URL or /uploads path.')
+const imageSourceOrEmpty = z.union([imageSource, z.literal('')])
 
 export const portfolioFormSchema = z.object({
   title: z.string().trim().min(3, 'Title must be at least 3 characters.'),
@@ -23,8 +39,8 @@ export const portfolioFormSchema = z.object({
   timeline: z.string().trim().min(3, 'Timeline is required.'),
   status: z.enum(['draft', 'publish']),
   featured: z.boolean(),
-  thumbnail_url: z.string().url('Add a valid thumbnail URL.'),
-  cover_image_url: urlOrEmpty,
+  thumbnail_url: imageSource,
+  cover_image_url: imageSourceOrEmpty,
   problem_statement: z.string().trim().min(20, 'Problem statement is required.'),
   goals: z.string().trim().min(20, 'Goals are required.'),
   process: z.string().trim().min(20, 'Process is required.'),
@@ -40,7 +56,7 @@ export const portfolioFormSchema = z.object({
     .min(1, 'Add at least one tool.'),
   gallery: z.array(
     z.object({
-      image_url: urlOrEmpty,
+      image_url: imageSourceOrEmpty,
       caption: z.string().trim(),
     }),
   ),
